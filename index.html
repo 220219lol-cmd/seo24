@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>USDT 交易“留证 + 排错 + 隐私”工具箱（2025）：TXID/确认数/地址核对一页搞定</title>
+  <meta name="description" content="USDT 交易常见问题：未到账、Pending、链上成功但平台未入账、地址选错网络等。本页提供“留证模板 + 排错顺序 + 隐私安全要点”，并整理可收藏资源入口与 FAQ（含结构化数据）。">
+  <meta name="keywords" content="USDT,TXID,确认数,Pending,TRC20,ERC20,地址核对,留证模板,隐私安全" />
+  <link rel="canonical" href="https://220219lol-cmd.github.io/seo24/" />
+
+  <style>
+    :root{
+      --bg:#06160f;
+      --panel:rgba(255,255,255,.06);
+      --line:rgba(255,255,255,.12);
+      --text:#eafff2;
+      --muted:rgba(234,255,242,.72);
+      --green:#22c55e;
+      --green2:#16a34a;
+      --gold:#f4d07b;
+      --shadow:0 18px 45px rgba(0,0,0,.45);
+      --r:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 520px at 12% 0%, rgba(34,197,94,.28), transparent 55%),
+        radial-gradient(900px 420px at 88% 12%, rgba(244,208,123,.18), transparent 60%),
+        linear-gradient(180deg, #04110b 0%, #06160f 40%, #04110b 100%);
+      line-height:1.9;
+    }
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:0 auto;padding:28px 16px 70px}
+
+    .hero{
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:22px;
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .badge{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:6px 12px;border-radius:999px;
+      background:rgba(34,197,94,.14);
+      border:1px solid rgba(34,197,94,.35);
+      color:#d9ffe7;font-weight:900;font-size:12px;
+    }
+    h1{margin:12px 0 6px;font-size:28px;letter-spacing:.2px}
+    .sub{margin:0;color:var(--muted);max-width:980px}
+
+    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:10px 14px;border-radius:999px;text-decoration:none;
+      font-weight:900;font-size:14px;
+      border:1px solid rgba(34,197,94,.35);
+      background:linear-gradient(90deg, rgba(34,197,94,.18), rgba(34,197,94,.06));
+      color:#eafff2;
+    }
+    .btn.primary{
+      border-color:transparent;
+      background:linear-gradient(90deg, var(--green), var(--green2));
+      color:#032012;
+      box-shadow:0 12px 30px rgba(34,197,94,.25);
+    }
+    .btn.gold{
+      border-color:rgba(244,208,123,.45);
+      background:linear-gradient(90deg, rgba(244,208,123,.22), rgba(244,208,123,.08));
+      color:#fff6dd;
+    }
+    .btn:hover{transform:translateY(-1px);transition:.15s}
+
+    .kpis{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:16px}
+    .kpi{
+      grid-column:span 4;
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      background:rgba(255,255,255,.06);
+      padding:14px;
+    }
+    .kpi b{display:block;font-size:14px}
+    .kpi p{margin:6px 0 0;color:var(--muted);font-size:13px}
+    @media(max-width:900px){.kpi{grid-column:span 12} h1{font-size:24px}}
+
+    .section{
+      margin-top:16px;
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      box-shadow:var(--shadow);
+    }
+    .section h2{margin:0 0 10px;font-size:20px;color:#d9ffe7}
+
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}
+    .card{
+      grid-column:span 6;
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      background:rgba(255,255,255,.06);
+      padding:14px;
+    }
+    @media(max-width:900px){.card{grid-column:span 12}}
+    .card h3{margin:0 0 8px;font-size:16px}
+    .card ul{margin:0;padding-left:18px;color:var(--muted)}
+    .card li{margin:6px 0}
+
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border:1px solid var(--line);
+      border-radius:18px;
+      overflow:hidden;
+      margin-top:12px;
+      background:rgba(0,0,0,.16);
+    }
+    .table th,.table td{padding:12px 12px;text-align:left}
+    .table th{background:rgba(34,197,94,.10);font-size:13px}
+    .table td{border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+
+    .code{
+      margin-top:12px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+      background:#0b1220;
+      color:#e5e7eb;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+      font-size:13px;
+      overflow:auto;
+    }
+
+    .callout{
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:18px;
+      border:1px dashed rgba(244,208,123,.55);
+      background:rgba(244,208,123,.10);
+      color:#fff6dd;
+      font-weight:900;
+    }
+
+    details{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:12px 14px;
+      background:rgba(0,0,0,.12);
+      margin-top:10px;
+    }
+    summary{cursor:pointer;font-weight:900}
+    .fine{margin-top:14px;color:rgba(234,255,242,.60);font-size:12px}
+    .hr{height:1px;background:var(--line);margin:14px 0}
+  </style>
+</head>
+
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <span class="badge">SEO24 · USDT 留证 + 排错 + 隐私 工具箱</span>
+      <h1>USDT 交易“留证 + 排错 + 隐私”工具箱（2025）</h1>
+      <p class="sub">
+        你遇到的 90% 问题都能用同一套逻辑解决：<b>先留证（TXID）</b> → <b>再排错（网络/确认数）</b> → <b>最后看规则/队列</b>。
+        这页把“可复制模板”与“排查顺序”整理成一页，建议收藏。
+      </p>
+
+      <div class="btns">
+        <a class="btn primary" href="https://usdtonlinecasino.com/" target="_blank" rel="noopener">资源中心（主站）</a>
+        <a class="btn gold" href="https://usdtonlinecasino.com/usdt-payment-guide/" target="_blank" rel="noopener">USDT 支付教学</a>
+        <a class="btn" href="https://usdtonlinecasino.com/usdt-faq/" target="_blank" rel="noopener">USDT FAQ</a>
+        <a class="btn" href="https://usdtonlinecasino.com/usdt-news/" target="_blank" rel="noopener">USDT 最新资讯</a>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><b>优先级 1：TXID</b><p>没有 TXID 就没有链上凭证，先拿 TXID</p></div>
+        <div class="kpi"><b>优先级 2：网络</b><p>TRC20 / ERC20 不一致是最常见“不到账”原因</p></div>
+        <div class="kpi"><b>优先级 3：确认数</b><p>确认数未达标多为正常等待，达标再找平台</p></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1）一分钟排查顺序（照做）</h2>
+      <table class="table">
+        <thead><tr><th>顺序</th><th>你检查什么</th><th>怎么做</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>网络是否一致</td><td>平台提示 TRC20 就只用 TRC20；ERC20 同理</td><td>不一致 = 高概率不到账</td></tr>
+          <tr><td>2</td><td>地址是否正确</td><td>对照“前 6 位 + 后 6 位”；不要手打</td><td>错一位也会丢</td></tr>
+          <tr><td>3</td><td>是否有 TXID</td><td>转出记录里找到 TXID，截图保存</td><td>无 TXID = 无凭证</td></tr>
+          <tr><td>4</td><td>链上状态/确认数</td><td>确认 Success/Confirmed + 确认数达标</td><td>达标后再找平台</td></tr>
+          <tr><td>5</td><td>平台规则/队列/风控</td><td>提交 TXID + 金额 + 时间 + 网络截图</td><td>留证越全越快</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">✅ 任何情况下：不给 TXID、只让你“再充一点”的说法都要警惕，先停手留证。</div>
+    </section>
+
+    <section class="section">
+      <h2>2）留证模板（复制就能用）</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>你应该保存的 6 个字段</h3>
+          <ul>
+            <li><b>TXID：</b>交易哈希（复制 + 截图）</li>
+            <li><b>网络：</b>TRC20 / ERC20</li>
+            <li><b>金额：</b>USDT 数量</li>
+            <li><b>收款地址：</b>完整地址 + 前6后6</li>
+            <li><b>时间：</b>转账时间截图</li>
+            <li><b>问题类型：</b>未入账 / Pending / 提现慢</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>一键工单文本（中文）</h3>
+          <div class="code">
+【问题类型】USDT 未入账 / 提现延迟（请确认）<br>
+【网络】TRC20 / ERC20：_____<br>
+【金额】____ USDT<br>
+【收款地址】_____（前6：_____ / 后6：_____）<br>
+【TXID】_____（已附截图）<br>
+【转账时间】_____<br><br>
+请协助核对链上状态与确认数阈值；若已达标但未处理，请提供工单号、处理进度与预计完成时间。谢谢。
+          </div>
+        </div>
+      </div>
+      <p class="fine">提示：你每次把这 6 项留证存好，后面不管找谁沟通都不吃亏。</p>
+    </section>
+
+    <section class="section">
+      <h2>3）隐私与安全：3 个关键点（别踩坑）</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>地址与截图不要随便公开</h3>
+          <ul>
+            <li>不要在公开评论区贴完整地址与 TXID 截图</li>
+            <li>对外只给“前6后6”用于核对</li>
+            <li>需要提交证据时，只发给官方渠道</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>先小额测试再大额</h3>
+          <ul>
+            <li>新地址/新平台/首次大额，先小额测试</li>
+            <li>测试成功再放大金额，成本最低</li>
+            <li>避免“网络选错/地址错”的一次性损失</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>4）FAQ（常见问题）</h2>
+      <details><summary>Q1：Pending 就是失败吗？</summary><p>不是。Pending 常见是网络拥堵或手续费设置导致的等待，先看链上状态与确认数。</p></details>
+      <details><summary>Q2：链上确认了平台没入账怎么办？</summary><p>通常是确认数阈值、平台队列或风控审核。准备 TXID 与截图提交工单更高效。</p></details>
+      <details><summary>Q3：为什么一定要保存 TXID？</summary><p>TXID 是链上凭证。没有 TXID 就很难证明你的交易状态与收款地址。</p></details>
+      <details><summary>Q4：公开贴地址与 TXID 有风险吗？</summary><p>有。可能暴露你的交易关系与资产路径。对外只给必要的部分信息。</p></details>
+      <p class="fine">免责声明：本页为科普/教育用途，请遵守所在地法律与规则，自行评估风险。</p>
+    </section>
+  </main>
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"FAQPage",
+    "mainEntity":[
+      {"@type":"Question","name":"Pending 就是失败吗？",
+        "acceptedAnswer":{"@type":"Answer","text":"不是。Pending 常见是网络拥堵或手续费设置导致的等待，先看链上状态与确认数。"}},
+      {"@type":"Question","name":"链上确认了平台没入账怎么办？",
+        "acceptedAnswer":{"@type":"Answer","text":"通常是确认数阈值、平台队列或风控审核。准备 TXID 与截图提交工单更高效。"}},
+      {"@type":"Question","name":"为什么一定要保存 TXID？",
+        "acceptedAnswer":{"@type":"Answer","text":"TXID 是链上凭证。没有 TXID 就很难证明你的交易状态与收款地址。"}},
+      {"@type":"Question","name":"公开贴地址与 TXID 有风险吗？",
+        "acceptedAnswer":{"@type":"Answer","text":"有。可能暴露你的交易关系与资产路径。对外只给必要的部分信息。"}}
+    ]
+  }
+  </script>
+</body>
+</html>
